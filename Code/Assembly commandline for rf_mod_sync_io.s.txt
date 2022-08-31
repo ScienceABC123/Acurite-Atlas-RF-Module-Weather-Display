@@ -1,0 +1,2 @@
+as -o rf_mod_sync_io.o rf_mod_sync_io.s
+as -al -o rf_mod_sync_io.o rf_mod_sync_io.s > rf_mod_sync_io.lst

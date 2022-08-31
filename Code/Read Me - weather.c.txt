@@ -1,0 +1,107 @@
+weather.c read me...
+
+The weather.c program brings everything together: initialization, sampling weather data from the RF receiver module, averaging the data over one minute intervals, computing things like dew point and displaying/graphing the data. I played around with various formats and visual arraignments, and finally decided on a six panel approach. Early on I decided on using a 24-inch 1920x1080 monitor and that I was going to hang this on the living room wall in place of my Acurite HD Display, so I also wanted it to include the time. That eventually grew into day, date and time. See picture “Wind Gust!.jpg” for my final project displayed on my living room wall.
+
+The code begins with a few functions (sources included) to:
+-	Draw a graph background
+-	Calculate the dew point
+-	Calculate the wind chill
+-	Calculate the heat index
+-	Calculate solar radiation from lux
+-	Compute the y offset for graphing
+
+The main program includes notes for setting the Raspberry Pi to autostart weather.c on boot up.
+
+First, the screen is cleared to prevent the GPU from painting over the intended display.
+
+Next, the graphics screen is initialized by opening the frame buffer and mapping it to user memory for program use. If the frame buffer isn’t 32bpp, necessary for Simple ARM Graphics Library, main will display a failure message and terminate.
+
+Next, WiringPi is initialized by calling the initialization routine (RF_Mod_Init) in the ARM assembly program (rf_mod_sync_io.s). This is also where the packet buffer address is passed to the ARM assembly program. If WiringPi fails to initialize, main will display a failure message and terminate.
+
+Note: All WiringPi calls, including initialization, are made from within the ARM assembly program.
+
+Next, main sleeps for 1 second just to give you a chance to read the initialize messages.
+
+Next, main clears the screen (again) and turns off the system cursor. The Simple ARM Graphics Library is initialized, some graphing constants are calculated, the graphics screen is cleared to black, a patience message is display in the lower left-hand corner, some one time initialized variables are initialized, and the code falls into the main loop.
+
+Main Loop:
+
+First, the main loop begins with sampling the weather data six times, 10 seconds apart. Wind speed is sampled every 10 seconds. Temperature, relative humidity, UV index, lux, and wind direction are sampled every 30 seconds. The battery low flag, lightning strikes, lightning distance, and precipitation are sampled in the last sampling. The weather data is averaged over the one minute sampling period.
+
+Next, the main loop gets the current date/time of the system. It checks if the current time is the same as the last time (this always fails on the first iteration), if it is the same time it loops here until the next minute arrives. Otherwise it updates the time displayed in the lower right-hand corner of the display.
+
+Next, the main loop checks if the day is the same as the last day time (this always fails on the first iteration), if it isn’t it updates the day/date in the lower left-hand corner of the display, resets the variables for a new day, and flags all the graphs for updating.
+
+Next, the main loop computes the minute of the day for saving weather information of the current day, and the corresponding x-position for graphing purposes.
+
+Next, the main loop checks the battery low flag and if set displays a battery low graphic (a vertical single cell battery symbol with a single red rectangle near its bottom) between the day/date and time at the bottom of the display (this is a big improvement on the very small icon used by the Acurite HD Display).
+
+The main loop then proceeds to process each of the six panel areas (temperature, wind speed, relative humidity, wind direction, precipitation, and solar radiation) separately before looping back to the beginning of the main loop.
+
+What is displayed in each panel area is position relative to the area’s x,y graph location. I did this early on as I was moving things around on the display and this made it easy to do so. Each panel’s x,y location is calculated at the beginning of its code section.
+
+Temperature Area:
+
+The values for current temperature, high/low, and wind chill/heat index (if applicable) are displayed.
+
+Note: Since wind chill only exists at/below 50°F and heat index only exists at/above 75°F they are mutually exclusive and are displayed at the same location.
+
+The temperature, dew point and wind chill/heat index (if applicable) are graphed. The colors are matched to the text labels. The graph auto-scales up/down in 10°F increments depending on the maximum and minimum values.
+
+Note: I originally graphed the temperature before the dew point, but when I recently had 100% humidity the temperature line became hidden behind the dew point line. So I reversed the graphing order so the temperature line is more prominent.
+
+A description (arbitrary) of the current temperature is also displayed.
+
+Wind Speed Area:
+
+The values for the current wind speed (averaged over the last five minutes) and the peak wind speed are displayed.
+
+The wind speed and any wind gusts (if applicable) are graphed. The colors are matched to the text labels. The graph scale defaults to 0-20mph, but does auto-scale up in 5mph increments as necessary.
+
+Note: Gusts are defined by NOAA as wind peak >= 18mph, AND wind peak - wind lull >= 10mph.
+
+When a wind gust is detected, the message "Wind Gust!" will be displayed just below the wind peak.
+
+A description (Beaufort Scale) of the current wind speed is also displayed.
+
+Relative Humidity:
+
+The values for relative humidity and dew point are displayed.
+
+Note: While the dew point is actually graphed with the temperature, it’s a function of temperature and relative humidity. Its displayed value ended up in this area but is positioned just below the temperature graph so it’s still associated with it.
+
+The relative humidity is graphed by itself. The color is matched to the text label. The graph scale is 0-100%; as such it doesn’t need to auto-scale, so it’s fixed.
+
+A description (multiple sources, but arbitrary) of the relative humidity is also displayed.
+
+Wind Direction Area:
+
+The value for the wind direction is averaged over the last two minutes.
+
+The wind direction description and value (albeit in small text) are displayed.
+
+The wind direction is graphed. The color is matched to the text label. The graph scale (top to bottom) is the representation of going around a compass dial in clockwise rotation starting at North; as such it doesn’t need to auto-scale, so it’s fixed.
+
+Precipitation Area:
+
+The values for current precipitation accumulation, precipitation rate, number of lightning strikes, and the last lightning strike distance (if applicable) are displayed.
+
+The precipitation accumulation and precipitation rate are graphed. The colors are matched to the text labels. Precipitation accumulation is graphed as an increasing line, while precipitation rate is graphed as a histogram. Precipitation accumulation is graphed on top on precipitation rate. The graph scale defaults to 0 to 0.5”, but does auto-scale up first to 1”, then in 1” increment as necessary.
+
+A description (cited in the code) of the precipitation rate is also displayed.
+
+Solar Radiation:
+
+“Warning Uneven Road Ahead”
+
+When I originally graphed the lux value reported from the RF receiver module I was met with a data issue. There were several discontinuities in the data (see picture “Lux data - raw.jpg”). I spent a little over a week capturing raw data early in the morning and late in the afternoon on clear sky days (no clouds to muck things up) and discovered 7 well defined discontinuities. I searched for reasons for the discontinuities before finally coming to the conclusion they were deliberate (i.e. likely sabotage by a disgruntled Engineer). I still don’t know if it’s from the actual Acurite Atlas weather station or in the RF receiver module, it really doesn’t matter. I have no access to clear data and had to come up with a way to use this corrupted data.
+
+I eventually came up with code that detected each discontinuity and compensated for each individually. It’s not perfect, in fact I think it’s a bit messy, but it produces much cleaner data (see picture “Lux data - adjusted.jpg”). If anyone has any more information what is going on, or a better solution, I’d like to hear from you.
+
+The lux value means little to me, so in an effort to get something more useful I converted it from lux to W/m². It’s not an ideal conversion, but it’s all I have.
+
+The values for the current solar radiation, adjusted lux (albeit in small text), peak solar radiation, and UV index and UV risk (if applicable) are displayed.
+
+The solar radiation is graphed. The color is matched to the text label. The maximum value I’ve witnessed to date is 1,078 W/m². The graph scale is 0 to 1,200 W/m²; as such it doesn’t need to auto-scale, so it’s fixed.
+
+A description (cited in the code) of the lux value is also displayed.

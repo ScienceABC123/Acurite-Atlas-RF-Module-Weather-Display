@@ -1,0 +1,5 @@
+sudo apt-get install wiringpi
+
+add " -lwiringPi" to the end of the compile commandline
+
+change running "./weather" to "sudo ./weather"

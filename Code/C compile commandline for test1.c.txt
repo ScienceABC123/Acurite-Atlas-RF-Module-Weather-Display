@@ -1,0 +1,1 @@
+gcc -o test1 test1.c rf_mod_sync_io.o -lm -lwiringPi -Wall

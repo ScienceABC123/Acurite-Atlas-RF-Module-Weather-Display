@@ -1,0 +1,8 @@
+RPi GPIO	Wire	RF Module
+-----------	----	---------
+7 (GPIO4)	YEL	in_clk
+9 (GND)		BLK	GND
+11 (GPIO17)	ORG	in_data
+13 (GPIO27)	BLU	out_clk
+15 (GPIO22)	GRN	out_data
+17 (3.3V)	RED	VCC
