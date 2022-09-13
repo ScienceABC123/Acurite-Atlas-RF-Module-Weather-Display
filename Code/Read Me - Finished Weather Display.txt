@@ -1,4 +1,4 @@
-Finished weather station displayÖ
+Finished weather station display‚Ä¶
 
 The finished weather station display is going to hang on my living room wall in place of the Acurite HD display; as such it has to look good.
 
@@ -14,18 +14,26 @@ Clear electronic grade silicone
 Some small tie wraps
  And the Acurite RF module and 6-wire cable I made to connect it to the Raspberry Pi GPIO
 
-The monitor doesnít have to have a touch screen; the monitor I used was left over from a previous project. It should have a USB hub in it with USB ports on both the rear and the side to make connecting a keyboard (if/when necessary) easy. The reason for the Pisugar UPS is to keep everything, except the monitor, up and running during power outages.
+The monitor doesn‚Äôt have to have a touch screen; the monitor I used was left over from a previous project. It should have a USB hub in it with USB ports on both the
+rear and the side to make connecting a keyboard (if/when necessary) easy. The reason for the Pisugar UPS is to keep everything, except the monitor, up and running 
+during power outages.
 
-The battery of the Pisugar UPS and the Acurite RF module were glued to the rear of the monitor using clear electronic grade silicone (make sure to allow it to cure for 24 hours before attaching anything else). The Pisugar UPS control board is attached to the Raspberry Pi Zero 2W using the hardware that comes with it.
+The battery of the Pisugar UPS and the Acurite RF module were glued to the rear of the monitor using clear electronic grade silicone (make sure to allow it to cure for
+24 hours before attaching anything else). The Pisugar UPS control board is attached to the Raspberry Pi Zero 2W using the hardware that comes with it.
 
-The Raspberry Pi Zero 2W and Pisugar control board are attached to the Pisugar battery using the Pisugar control boardís strong magnet. Everything else is accomplished using cables and tie wraps. The Pisugar UPS gets power from one of the USB ports (USB type-A) on the rear of the monitor. The Raspberry Piís USB port is connected to the USB hub connection (USB type-B) on the rear of the monitor. And of course the Raspberry Piís HDMI port is connected to the monitorís HDMI port. All the cabling is bound up tight and held in place using tie wraps. I did have to cut off the monitor caseís cable routing plastic guides on the rear to make this all easier.
+The Raspberry Pi Zero 2W and Pisugar control board are attached to the Pisugar battery using the Pisugar control board‚Äôs strong magnet. Everything else is accomplished
+using cables and tie wraps. The Pisugar UPS gets power from one of the USB ports (USB type-A) on the rear of the monitor. The Raspberry Pi‚Äôs USB port is connected to
+the USB hub connection (USB type-B) on the rear of the monitor. And of course the Raspberry Pi‚Äôs HDMI port is connected to the monitor‚Äôs HDMI port. All the cabling is
+bound up tight and held in place using tie wraps. I did have to cut off the monitor case‚Äôs cable routing plastic guides on the rear to make this all easier.
 
-IMPORTANT NOTE: The antenna cable from the RF module must NOT be routed in parallel with the USB cables! It should cross the USB cables only at a right angle to avoid interference. Also, the rear of the monitor faces towards the Acurite Atlas outside.
+IMPORTANT NOTE: The antenna cable from the RF module must NOT be routed in parallel with the USB cables! It should cross the USB cables only at a right angle to avoid
+interference. Also, the rear of the monitor faces towards the Acurite Atlas outside.
 
-I was suffering from a lot of ìbad packetsî and had to move the antenna cable around to find a good location. While I was doing so I was using black electrical tape to hold the antenna in place. Once I found a good location I just left it with the electrical tape holding it in place.
+I was suffering from a lot of ‚Äúbad packets‚Äù and had to move the antenna cable around to find a good location. While I was doing so I was using black electrical tape to
+hold the antenna in place. Once I found a good location I just left it with the electrical tape holding it in place.
 
-See picture ìMonitor rear.jpgî for rear view after everything was in place.
+See picture ‚ÄúMonitor rear.jpg‚Äù for rear view after everything was in place.
 
 Finally I put in a recessed AC outlet in the wall behind where the monitor hangs to give it a clean wall appearance.
 
-See picture ìLots of rain.jpgî for final hanging view.
+See picture ‚ÄúLots of rain.jpg‚Äù for final hanging view.
