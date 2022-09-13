@@ -2,8 +2,14 @@ weather2.c read me...
 
 Some changes to weather.c caused me to release an updated version, weather2.c.
 
-The first change was to connect the points plotted on weather.c graphs with thick lines, making the discontinuities between the plotted points disappear. This was accomplished by adding a DrawThickLine function in weather2.c. NOTE: I didn't apply this to the wind direction graph as the wind vane direction is "unstable" below ~4MPH and the graph becomes a mess of lines.
+The first change was to connect the points plotted on weather.c graphs with thick lines, making the discontinuities between the plotted points disappear. This was
+accomplished by adding a DrawThickLine function in weather2.c. NOTE: I didn't apply this to the wind direction graph as the wind vane direction is "unstable" below ~4MPH
+and the graph becomes a mess of lines.
 
-The second change was to make wind gust more visible on the wind speed graph. In weather.c wind gusts are a yellow 5-pixel circle. In weather2.c wind gusts are a yellow 9-pixel square. So they are 40% larger/brighter and the square shape does highlight them a bit.
+The second change was to make wind gust more visible on the wind speed graph. In weather.c wind gusts are a yellow 5-pixel circle. In weather2.c wind gusts are a yellow
+9-pixel square. So they are 40% larger/brighter and the square shape does highlight them a bit.
 
-The third change was to how wind direction is averaged. In weather.c wind direction is averaged using a simple method that does work well for averaging just two samples, but can produce erroneous results when applied to more than two samples. In weather2.c wind direction is averaged over two minutes (four samples) using what I’ll call the ATAN2() function. This method is cited in several places on the internet. More info can be found in an Excel spreadsheet (Wind Direction Averaging Around North2.xlsx).
+The third change was to how wind direction is averaged. In weather.c wind direction is averaged using a simple method that does work well for averaging just two samples,
+but can produce erroneous results when applied to more than two samples. In weather2.c wind direction is averaged over two minutes (four samples) using what Iâ€™ll call
+the ATAN2() function. This method is cited in several places on the internet. More info can be found in an Excel spreadsheet (Wind Direction Averaging Around
+North2.xlsx).
