@@ -1642,11 +1642,33 @@ int main(int argc, char* argv[]) {
 		x = h_size - (x_size + 2);
 		y = (y_size * 4) - 1;
 
+		if (debug == 1) {
+			SelectFont(&Font5x9);
+			SelectColors(BLACK, BLACK);
+			DrawRectFilled(50, 0, 224, 10);
+			SelectColors(WHITE, BLACK);
+			for (i = 0; i < 4; i++) {
+				sprintf(str, "%.0f\xF8", wind_dir[i]);
+				PrintStringLeft(str, (i + 1) * 50, 0);
+			}
+		}
+
 		// Initialize wind direction variables by copying first samples
 
 		if (wind_dir[3] == -1) {
 			for (i = 0; i < 2; i++) {
 				wind_dir[3 - i] = wind_dir[1 - i];
+			}
+		}
+
+		if (debug == 1) {
+			SelectFont(&Font5x9);
+			SelectColors(BLACK, BLACK);
+			DrawRectFilled(50, 10, 224, 20);
+			SelectColors(WHITE, BLACK);
+			for (i = 0; i < 4; i++) {
+				sprintf(str, "%.0f\xF8", wind_dir[i]);
+				PrintStringLeft(str, (i + 1) * 50, 10);
 			}
 		}
 
@@ -1667,8 +1689,8 @@ int main(int argc, char* argv[]) {
 
 		// Update wind direction variables
 
-		for (i = 2; i < 3; i++) {
-			wind_dir[i] = wind_dir[i - 2];
+		for (i = 0; i < 2; i++) {
+			wind_dir[3 - i] = wind_dir[1 - i];
 		}
 
 		// Display current wind direction
