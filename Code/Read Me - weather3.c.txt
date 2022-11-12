@@ -1,0 +1,27 @@
+weather3.c read me…
+
+So I’ve been tinkering with weather2.c for a while now. I made some changes to the layout, improved wind speed and direction calculations, and a few other things.
+
+Initialization got clean up a bit, added some initialization messages, and now pauses for 5 seconds for reading purposes before launching into the main loop.
+
+The main loop initialization has been moved from throughout the main loop to a two stage, first pass initialization with a single flag to check rather than all the checking throughout the main loop. Moved most of the data processing from throughout the main loop to a single section between the two stages of the first pass initialization. This leaves the display area code sections to deal with just displaying.
+
+Added a threshold variable for heat index below which heat index is ignored (float heat_index_threshold = 80;) and added a minimum delta variable between heat index and temperature below which heat index is ignored (float heat_index_temp_minimum = 2;)
+
+Added a minimum delta variable between temperature and wind chill below which wind chill is ignored (float temp_wind_chill_minimum = 2;)
+
+Wind speed and direction are now both averaged over the last 5 minutes.
+
+Added a minimum threshold variable for wind speed below which wind direction is not calculated (float wind_dir_speed_threshold = 2.8;) Note: This value is dependent upon many factors (wind vane, placement, turbulence from nearby objects, etc.) and should be customize for the specific setup. Otherwise you could just set it to zero and tolerate the wind direction graph clutter at low speeds. As an aid, it also draws a dotted line for the threshold speed on the wind speed graph.
+
+Wind gusts are now displayed as a diamond to make them more visible.
+
+Since the precipitation rate is calculated from the precipitation accumulation spread over 6 minutes the precipitation rate calculated is actually the precipitation rate from 3 minutes in the past. As such the precipitation rate calculated is now saved as the precipitation rate 3 minutes in the past.
+
+The solar radiation graph now auto-scales.
+
+The general weather description has been combined into the top right corners in the: temperature, wind speed, and solar areas. It just made it easier for me to get a quick summary of the weather this way.
+
+I’m probably going to leave it alone at this point and move on to another project.
+
+Enjoy!
