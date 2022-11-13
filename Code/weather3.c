@@ -1560,7 +1560,7 @@ int main(int argc, char* argv[]) {
 		// (source: arbitrary)
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 905, y - 259);
+		DrawRectFilled(x + 515, y - 298, x + 935, y - 259);
 		if (prec_rate != 0) {
 			sprintf(str, "Raining!");
 			SelectColors(DODGER_BLUE, BLACK);
@@ -1575,7 +1575,6 @@ int main(int argc, char* argv[]) {
 				a = temp;
 				SelectColors(WHITE, BLACK);
 			}
-			a = round(a);
 			if (a >= 120) {
 				sprintf(str, "Burning Hot");
 			} else if (a >= 110) {
