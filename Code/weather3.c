@@ -294,7 +294,7 @@ int main(int argc, char* argv[]) {
 	float heat_index_threshold = 80;			// Heat index threshold, below which heat index is ignored
 	float heat_index_temp_minimum = 2;			// Heat index minus temperature minimum, below which heat index is ignored
 	float wind_chill_heat_index_past[1440];
-	float temp_wind_chill_minimum = 2;			// Temperature minus wind chill minimum, below which wind chill is ignored
+	float temp_wind_chill_minimum = 1;			// Temperature minus wind chill minimum, below which wind chill is ignored
 
 	int wind_speed_flag;
 	float wind_scale_high;
@@ -1425,7 +1425,7 @@ int main(int argc, char* argv[]) {
 				if (wind_chill == -999) {
 					a = dew_point;
 				} else {
-					a = wind_chill;
+					a = fminf(dew_point, wind_chill);
 				}
 				temp_scale_low = 10 * floorf(a / 10);
 				temp_low_flag = 0;
@@ -2413,7 +2413,7 @@ int main(int argc, char* argv[]) {
 
 		SelectFont(&Font5x9);
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x - 41, y - 247, x + 80, y - 238);
+		DrawRectFilled(x - 41, y - 247, x + 86, y - 238);
 		a = lux_adjusted;
 		if (a > 0) {
 			if (a < 1000) {
@@ -2421,7 +2421,7 @@ int main(int argc, char* argv[]) {
 			} else {
 				sprintf(str, "%.0f,%03.0f", (a / 1000), fmodf(a, 1000));
 			}
-			strcat(str, " lux (adjusted)");
+			strcat(str, " lux (adjusted) ");
 			SelectColors(LT_GRAY, BLACK);
 			PrintStringLeft(str, x - 40, y - 247);
 		}
