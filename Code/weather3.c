@@ -315,7 +315,7 @@ int main(int argc, char* argv[]) {
 	float wind_dir_data[10];
 	float wind_dir;
 	float wind_dir_last;
-	float wind_dir_speed_threshold = 2.8;			// Wind speed threshold, below which wind direction isn't graphed
+	float wind_dir_speed_threshold = 0;			// Wind speed threshold, below which wind direction isn't graphed
 
 	int prec_flag;
 	float prec_scale_high;
@@ -1575,29 +1575,29 @@ int main(int argc, char* argv[]) {
 				a = temp;
 				SelectColors(WHITE, BLACK);
 			}
-			if (a >= 120) {
+			if (a > 122) {
 				sprintf(str, "Burning Hot");
-			} else if (a >= 110) {
+			} else if (a > 112) {
 				sprintf(str, "Very Hot");
-			} else if (a >= 100) {
+			} else if (a > 102) {
 				sprintf(str, "Hot");
-			} else if (a >= 90) {
+			} else if (a > 92) {
 				sprintf(str, "Very Warm");
-			} else if (a >= 80) {
+			} else if (a > 82) {
 				sprintf(str, "Warm");
-			} else if (a >= 70) {
+			} else if (a > 72) {
 				sprintf(str, "Pleasant");
-			} else if (a >= 60) {
+			} else if (a > 62) {
 				sprintf(str, "Cool");
-			} else if (a >= 50) {
+			} else if (a > 52) {
 				sprintf(str, "Chilly");
-			} else if (a >= 40) {
+			} else if (a > 42) {
 				sprintf(str, "Cold");
-			} else if (a >= 30) {
+			} else if (a > 32) {
 				sprintf(str, "Very Cold");
-			} else if (a >= 20) {
+			} else if (a > 22) {
 				sprintf(str, "Freezing Cold");
-			} else if (a >= 10) {
+			} else if (a > 12) {
 				sprintf(str, "Frigid Cold");
 			} else {
 				sprintf(str, "Arctic Cold");
@@ -1728,13 +1728,15 @@ int main(int argc, char* argv[]) {
 
 			// Draw dotted line for wind speed threshold, below which wind direction isn't graphed
 
-//			sprintf(str, "Dir (%.1f)", wind_dir_speed_threshold);
-			y_pos = Y_Offset(wind_dir_speed_threshold, wind_scale_high, 0, y_size);
-//			SelectColors(MED_GRAY, BLACK);
-//			PrintStringRight(str, x - 5, y - (y_pos + 4));
-			SelectColors(MED_GRAY, MED_GRAY);
-			for (i = 4; i < x_size; i = i + 5) {
-				DrawLine(x + i, y - y_pos, x + i, y - y_pos);
+			if (wind_dir_speed_threshold != 0) {
+//				sprintf(str, "Dir (%.1f)", wind_dir_speed_threshold);
+				y_pos = Y_Offset(wind_dir_speed_threshold, wind_scale_high, 0, y_size);
+//				SelectColors(MED_GRAY, BLACK);
+//				PrintStringRight(str, x - 5, y - (y_pos + 4));
+				SelectColors(MED_GRAY, MED_GRAY);
+				for (i = 4; i < x_size; i = i + 5) {
+					DrawLine(x + i, y - y_pos, x + i, y - y_pos);
+				}
 			}
 
 			// Graph any previous and current wind speeds
@@ -2062,10 +2064,12 @@ int main(int argc, char* argv[]) {
 
 			// Display minimum wind speed for graphing
 
-			y_pos = Y_Offset(360, 360, 0, y_size);
-			sprintf(str, "Wind Speed >= %.1f mph", wind_dir_speed_threshold);
-			SelectColors(MED_GRAY, BLACK);
-			PrintStringRight(str, (x + x_size), y - (y_pos + 12));
+			if (wind_dir_speed_threshold != 0) {
+				y_pos = Y_Offset(360, 360, 0, y_size);
+				sprintf(str, "Wind Speed >= %.1f mph", wind_dir_speed_threshold);
+				SelectColors(MED_GRAY, BLACK);
+				PrintStringRight(str, (x + x_size), y - (y_pos + 12));
+			}
 
 			wind_dir_flag = 0;
 		}
