@@ -1560,7 +1560,7 @@ int main(int argc, char* argv[]) {
 		// (source: arbitrary)
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 935, y - 259);
+		DrawRectFilled(x + 516, y - 298, x + 935, y - 259);
 		if (prec_rate != 0) {
 			sprintf(str, "Raining!");
 			SelectColors(DODGER_BLUE, BLACK);
@@ -1613,7 +1613,7 @@ int main(int argc, char* argv[]) {
 		// Display today's hi/lo temperatures
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 250, x + 890, y - 211);
+		DrawRectFilled(x + 516, y - 250, x + 890, y - 211);
 		SelectColors(WHITE, BLACK);
 		PrintStringLeft("Hi:", x + 516, y - 250);
 		sprintf(str, "%.1f\xF8", temp_high);
@@ -1626,7 +1626,7 @@ int main(int argc, char* argv[]) {
 
 		SelectColors(BLACK, BLACK);
 		if (minute == 0) {
-			DrawRectFilled(x + 515, y - 202, x + 890, y - 163);				// Clear the entire wind chill/heat index area
+			DrawRectFilled(x + 516, y - 202, x + 890, y - 163);				// Clear the entire wind chill/heat index area
 		} else if (wind_chill_heat_index_past[minute_last] != -999) {
 			if (wind_chill_heat_index_past[minute_last] <= 50) {
 				DrawRectFilled(x + 717, y - 202, x + 889, y - 163);			// Clear everything after "Wind Chill"
@@ -1802,7 +1802,7 @@ int main(int argc, char* argv[]) {
 		// (source: https://www.weather.gov/pqr/wind)
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 889, y - 259);
+		DrawRectFilled(x + 516, y - 298, x + 889, y - 259);
 		if (wind_speed > 75) {
 			sprintf(str, "Hurricane Force");
 		} else if (wind_speed >= 64) {
@@ -1836,7 +1836,7 @@ int main(int argc, char* argv[]) {
 		// Display current wind peak and lull
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 250, x + 889, y - 211);
+		DrawRectFilled(x + 516, y - 250, x + 889, y - 211);
 		if (wind_gust_past[minute] != -1) {
 			SelectColors(EXTRA_BRIGHT_YELLOW, BLACK);
 		} else {
@@ -1853,7 +1853,7 @@ int main(int argc, char* argv[]) {
 
 		if (minute == 0) {
 			SelectColors(BLACK, BLACK);
-			DrawRectFilled(x + 515, y - 202, x + 889, y - 163);
+			DrawRectFilled(x + 516, y - 202, x + 889, y - 163);
 		}
 		if (wind_gusts != 0) {
 			SelectColors(EXTRA_BRIGHT_YELLOW, BLACK);
@@ -1936,7 +1936,7 @@ int main(int argc, char* argv[]) {
 		// Display dew point
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 890, y - 259);
+		DrawRectFilled(x + 516, y - 298, x + 890, y - 259);
 		SelectColors(BRIGHT_APPLE_GREEN, BLACK);
 		PrintStringLeft("Dew Point:", x + 516, y - 298);
 		sprintf(str, "%.1f\xF8", dew_point);
@@ -2104,7 +2104,7 @@ int main(int argc, char* argv[]) {
 		// Display wind direction in degrees
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 889, y - 259);
+		DrawRectFilled(x + 516, y - 298, x + 889, y - 259);
 		sprintf(str, "%.0f\xF8", wind_dir);
 		SelectColors(WHITE, BLACK);
 		PrintStringRight(str, x + 889, y - 298);
@@ -2242,8 +2242,8 @@ int main(int argc, char* argv[]) {
 
 		if (minute == 0) {
 			SelectColors(BLACK, BLACK);
-			DrawRectFilled(x + 515, y - 298, x + 890, y - 259);
-			DrawRectFilled(x + 515, y - 250, x + 890, y - 211);
+			DrawRectFilled(x + 516, y - 298, x + 890, y - 259);
+			DrawRectFilled(x + 516, y - 250, x + 890, y - 211);
 		}
 		if (ltng_acc > 0) {
 
@@ -2273,9 +2273,11 @@ int main(int argc, char* argv[]) {
 
 		SelectColors(BLACK, BLACK);
 		if (minute == 0) {
-			DrawRectFilled(x + 515, y - 202, x + 890, y - 163);				// Clear the entire precipitation rate area
+			DrawRectFilled(x + 516, y - 202, x + 890, y - 163);				// Clear the entire precipitation rate area
+		} else if (prec_rate == 0) {
+			DrawRectFilled(x + 743, y - 202, x + 890, y - 163);				// Clear everything after "Precip Rate"
 		}
-		if (prec_acc > 0) {
+		if (prec_rate != 0) {
 			SelectColors(BITTER_LEMON, BLACK);
 			PrintStringLeft("Precip Rate:", x + 516, y - 202);
 			sprintf(str, "%.1f\"/hr", prec_rate);
@@ -2438,7 +2440,7 @@ int main(int argc, char* argv[]) {
 		// (source: https://elinetechnology.com/tools-and-downloads/lux-light-illumination-chart/)
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 298, x + 889, y - 259);
+		DrawRectFilled(x + 516, y - 298, x + 889, y - 259);
 		if (lux_adjusted >= 107639) {
 			sprintf(str, "Bright Sunlight");
 		} else if (lux_adjusted >= 10763.9) {
@@ -2460,8 +2462,8 @@ int main(int argc, char* argv[]) {
 		// Display current UV index and description
 
 		SelectColors(BLACK, BLACK);
-		DrawRectFilled(x + 515, y - 250, x + 889, y - 211);
-		DrawRectFilled(x + 515, y - 202, x + 889, y - 163);
+		DrawRectFilled(x + 516, y - 250, x + 889, y - 211);
+		DrawRectFilled(x + 516, y - 202, x + 889, y - 163);
 		if (uv > 0) {
 
 			// Display current UV index
