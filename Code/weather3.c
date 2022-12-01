@@ -1207,14 +1207,12 @@ int main(int argc, char* argv[]) {
 *******************************************************************************/
 
 	if (init_flag == 1) {
+		init_flag = 0;
 
 		// Initialize wind direction last variable
 
 		wind_dir_last = wind_dir;
 
-		// Clear initialization flag
-
-		init_flag = 0;
 	}
 
 /*******************************************************************************
@@ -1242,6 +1240,7 @@ int main(int argc, char* argv[]) {
 
 			strftime(str, 40, "%-l:%M%P", loc_time);
 			if (strcmp(time_old, str) != 0) {
+				strcpy(time_old, str);
 
 				// Update displayed time
 
@@ -1250,20 +1249,20 @@ int main(int argc, char* argv[]) {
 				DrawRectFilled(1379, 950, 1919, 1079);
 				SelectColors(WHITE, BLACK);
 				PrintStringRight(str, 1919, 950);
-				strcpy(time_old, str);
 
-				// Check for date not the same as old date
+				// Check for day not the same as old day
 
-				strftime(str, 40, "%a, %b %-d, %Y", loc_time);
-				if (strncmp(day_old, str, 3) != 0) {
+				strftime(str, 40, "%a", loc_time);							// ex. "Sun"
+				if (strcmp(day_old, str) != 0) {
+					strcpy(day_old, str);
 
 					// Update displayed day and date
 
 					SelectColors(BLACK, BLACK);
 					DrawRectFilled(0, 950, 1253, 1079);
+					strftime(str, 40, "%a, %b %-d, %Y", loc_time);			// ex. "Sun, Nov 27, 2022"
 					SelectColors(WHITE, BLACK);
 					PrintStringLeft(str, 0, 950);
-					strcpy(day_old, str);
 
 					// New day: reset variables and erase previous past readings
 
@@ -1375,13 +1374,13 @@ int main(int argc, char* argv[]) {
 		SelectColors(WHITE, BLACK);
 		PrintStringCenter(str, x + 290, y - 285);
 
-		// Check for temperature scale change needed
+		// Check for temperature scale high change needed
 
 		if (fmaxf(temp_high, heat_index) > temp_scale_high) {
 			temp_high_flag = 1;
 		}
 
-		// Check for temperature scale change needed
+		// Check for temperature scale low change needed
 
 		if (wind_chill == -999) {
 			if (dew_point < temp_scale_low) {
@@ -1407,28 +1406,30 @@ int main(int argc, char* argv[]) {
 
 			DrawGraph(x, y, x_size, y_size, hr_size);
 
-			// Calculate temperature scale high
+			// Check for new temperature scale high
 
 			if (temp_high_flag == 1) {
+				temp_high_flag = 0;
+
 				if (heat_index == -999) {
 					a = temp_high;
 				} else {
 					a = heat_index;
 				}
 				temp_scale_high = 10 * ceilf(a / 10);
-				temp_high_flag = 0;
 			}
 
-			// Calculate temperature scale low
+			// Check for new temperature scale low
 
 			if (temp_low_flag == 1) {
+				temp_low_flag = 0;
+
 				if (wind_chill == -999) {
 					a = dew_point;
 				} else {
 					a = fminf(dew_point, wind_chill);
 				}
 				temp_scale_low = 10 * floorf(a / 10);
-				temp_low_flag = 0;
 			}
 
 			// Display temperature graph scale
@@ -1688,6 +1689,7 @@ int main(int argc, char* argv[]) {
 		// Check for new/update graph
 
 		if (wind_speed_flag == 1) {
+			wind_speed_flag = 0;
 
 			// Draw wind speed area label
 
@@ -1763,9 +1765,6 @@ int main(int argc, char* argv[]) {
 					DrawThickLine(x + k, y - y_pos_last, x + j, y - y_pos);
 				}
 			}
-
-			wind_speed_flag = 0;
-
 		} else {
 
 			// Graph current wind speed
@@ -1886,6 +1885,7 @@ int main(int argc, char* argv[]) {
 		// Check for new graph
 
 		if (rh_flag == 1) {
+			rh_flag = 0;
 
 			// Draw relative humidity area label
 
@@ -1914,8 +1914,6 @@ int main(int argc, char* argv[]) {
 				SelectColors(MED_GRAY, MED_GRAY);
 				DrawLine(x, y - y_pos, x + (x_size - 1), y - y_pos);
 			}
-
-			rh_flag = 0;
 		}
 
 		// Graph relative humidity
@@ -2013,6 +2011,7 @@ int main(int argc, char* argv[]) {
 		// Check for new graph
 
 		if (wind_dir_flag == 1) {
+			wind_dir_flag = 0;
 
 			// Draw wind direction area label
 
@@ -2070,8 +2069,6 @@ int main(int argc, char* argv[]) {
 				SelectColors(MED_GRAY, BLACK);
 				PrintStringRight(str, (x + x_size), y - (y_pos + 12));
 			}
-
-			wind_dir_flag = 0;
 		}
 
 		// Graph wind direction
@@ -2150,6 +2147,7 @@ int main(int argc, char* argv[]) {
 		// Check for new/update graph
 
 		if (prec_flag == 1) {
+			prec_flag = 0;
 
 			// Draw precipitation area label
 
@@ -2191,8 +2189,6 @@ int main(int argc, char* argv[]) {
 				SelectColors(MED_GRAY, MED_GRAY);
 				DrawLine(x, y - y_pos, x + (x_size - 1), y - y_pos);
 			}
-
-			prec_flag = 0;
 		}
 
 		// Graph any previous and current precipitation rates
@@ -2323,6 +2319,7 @@ int main(int argc, char* argv[]) {
 		// Check for new/update graph
 
 		if (solar_flag == 1) {
+			solar_flag = 0;
 
 			// Draw solar area label
 
@@ -2398,9 +2395,6 @@ int main(int argc, char* argv[]) {
 					DrawThickLine(x + k, y - y_pos_last, x + j, y - y_pos);
 				}
 			}
-
-			solar_flag = 0;
-
 		} else {
 
 			// Graph current solar, adjusted
