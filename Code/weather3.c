@@ -1248,7 +1248,7 @@ int main(int argc, char* argv[]) {
 				SelectColors(BLACK, BLACK);
 				DrawRectFilled(1379, 950, 1919, 1079);
 				SelectColors(WHITE, BLACK);
-				PrintStringRight(str, 1919, 950);
+				PrintStringRight(str, 1919, 949);
 
 				// Check for day not the same as old day
 
@@ -1262,7 +1262,7 @@ int main(int argc, char* argv[]) {
 					DrawRectFilled(0, 950, 1253, 1079);
 					strftime(str, 40, "%a, %b %-d, %Y", loc_time);			// ex. "Sun, Nov 27, 2022"
 					SelectColors(WHITE, BLACK);
-					PrintStringLeft(str, 0, 950);
+					PrintStringLeft(str, 0, 949);
 
 					// New day: reset variables and erase previous past readings
 
@@ -1577,9 +1577,9 @@ int main(int argc, char* argv[]) {
 				SelectColors(WHITE, BLACK);
 			}
 			if (a > 122) {
-				sprintf(str, "Burning Hot");
+				sprintf(str, "Scorching");
 			} else if (a > 112) {
-				sprintf(str, "Very Hot");
+				sprintf(str, "Sweltering");
 			} else if (a > 102) {
 				sprintf(str, "Hot");
 			} else if (a > 92) {
@@ -1597,11 +1597,11 @@ int main(int argc, char* argv[]) {
 			} else if (a > 32) {
 				sprintf(str, "Very Cold");
 			} else if (a > 22) {
-				sprintf(str, "Freezing Cold");
+				sprintf(str, "Freezing");
 			} else if (a > 12) {
-				sprintf(str, "Frigid Cold");
+				sprintf(str, "Subfreezing");
 			} else {
-				sprintf(str, "Arctic Cold");
+				sprintf(str, "Arctic");
 			}
 			if (roundf(rh) > 60) {
 				strcat(str, ", Humid");
