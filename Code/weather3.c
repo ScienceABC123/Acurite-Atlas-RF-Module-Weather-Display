@@ -1246,7 +1246,7 @@ int main(int argc, char* argv[]) {
 
 				SelectFont(&FontArial104);
 				SelectColors(BLACK, BLACK);
-				DrawRectFilled(1379, 950, 1919, 1079);
+				DrawRectFilled(1379, 949, 1919, 1079);
 				SelectColors(WHITE, BLACK);
 				PrintStringRight(str, 1919, 949);
 
@@ -1259,7 +1259,7 @@ int main(int argc, char* argv[]) {
 					// Update displayed day and date
 
 					SelectColors(BLACK, BLACK);
-					DrawRectFilled(0, 950, 1253, 1079);
+					DrawRectFilled(0, 949, 1253, 1079);
 					strftime(str, 40, "%a, %b %-d, %Y", loc_time);			// ex. "Sun, Nov 27, 2022"
 					SelectColors(WHITE, BLACK);
 					PrintStringLeft(str, 0, 949);
