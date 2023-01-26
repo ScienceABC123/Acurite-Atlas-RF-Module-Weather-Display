@@ -32,3 +32,6 @@ quick summary of the weather this way.
 I’m probably going to leave it alone at this point and move on to another project.
 
 Enjoy!
+
+
+P.S. Added the text "Compass Dir:" in front of wind direction in degrees.
