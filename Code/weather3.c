@@ -938,7 +938,7 @@ int main(int argc, char* argv[]) {
 *
 * Data Processing
 *
-* Note: Some data processing is sequence dependent (e.x. the average wind speed must be computed before the wind chill can be computed)
+* Note: Some data processing is sequence dependent (ex. the average wind speed must be computed before the wind chill can be computed)
 *
 *******************************************************************************/
 
@@ -2102,8 +2102,9 @@ int main(int argc, char* argv[]) {
 
 		SelectColors(BLACK, BLACK);
 		DrawRectFilled(x + 516, y - 298, x + 889, y - 259);
-		sprintf(str, "%.0f\xF8", wind_dir);
 		SelectColors(WHITE, BLACK);
+		PrintStringLeft("Compass Dir:", x + 516, y - 298);
+		sprintf(str, "%.0f\xF8", wind_dir);
 		PrintStringRight(str, x + 889, y - 298);
 
 /*******************************************************************************
