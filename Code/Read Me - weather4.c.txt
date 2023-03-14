@@ -1,13 +1,22 @@
-weather4.c read me…
+weather4.c read meâ€¦
 
-I've noticed a couple of times where the RF module would seem to stop sending current data and just repeat the old data for quite a long time. After much tinkering around I've kind of figured out the RF module is sensitive to both read under-sampling and over-sampling, that is to say reading packets either too slowly and too quickly. I think the RF module's logic gets overwhelmed from reading too quickly and doesn't have the ability to buffer RF data very much. Once it gets into this state it can take quite a long time to sort itself out.
+I've noticed a couple of times where the RF module would seem to stop sending current data and just repeat the old data for quite a long time. After much tinkering 
+around I've kind of figured out the RF module is sensitive to both read under-sampling and over-sampling, that is to say reading packets either too slowly and too 
+quickly. I think the RF module's logic gets overwhelmed from reading too quickly and doesn't have the ability to buffer RF data very much. Once it gets into this state 
+it can take quite a long time to sort itself out.
 
-I also recently learned about the "switch" statement in C and found it makes a great master scheduler, much better than relying on "sleep" commands to spread out the data sampling.
+I also recently learned about the "switch" statement in C and found it makes a great master scheduler, much better than relying on "sleep" commands to spread out the 
+data sampling.
 
-So I've re-written the sampling/data processing scheme to sample continuously, instead of once every 10 seconds, but with 150 millisecond "sleep" delays between reads. A read packet timeout error will cause a 700 millisecond "sleep" delay to allow the RF module time to sort itself out. To do this required re-writing the RF synchronous I/O software to provide detailed responses identifying what type of error occured when an error occurs. Packets are now continuously read and the data is saved in temporary buffers, one for each packet type. So the temporary buffers always have the lastest data. The "switch" statement in conjunction with the current time seconds is used to determine when data is sampled from the temporary buffers, data is processed, and the display updated.
+So I've re-written the sampling/data processing scheme to sample continuously, instead of once every 10 seconds, but with 150 millisecond "sleep" delays between reads. A 
+read packet timeout error will cause a 700 millisecond "sleep" delay to allow the RF module time to sort itself out. To do this required re-writing the RF synchronous 
+I/O software to provide detailed responses identifying what type of error occured when an error occurs. Packets are now continuously read and the data is saved in 
+temporary buffers, one for each packet type. So the temporary buffers always have the lastest data. The "switch" statement in conjunction with the current time seconds 
+is used to determine when data is sampled from the temporary buffers, data is processed, and the display updated.
 
-I also added lighting strike distances to the precipitation graph just so I could see storm fronts moving through the area. I got a little "cutesy" by using little lighting bolts for graphing lighting strike distances, which caused me to do something similiar for graphing wind gusts in the wind speed graph.
+I also added lighting strike distances to the precipitation graph just so I could see storm fronts moving through the area. I got a little "cutesy" by using little 
+lighting bolts for graphing lighting strike distances, which caused me to do something similiar for graphing wind gusts in the wind speed graph.
 
-I’m probably going to leave it alone at this point and move on to another project, but I've said that before...
+Iâ€™m probably going to leave it alone at this point and move on to another project, but I've said that before...
 
 Enjoy!
