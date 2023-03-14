@@ -14,6 +14,7 @@
 * ----------------------------------------------------
 * 1.0	5/16/22		PMW	Initial creation begun
 *	5/24/22		PMW	Test and debug completed
+* 1.1	3/7/23		PMW	Expanded error codes
 *
 *******************************************************************************/
 
@@ -170,6 +171,9 @@ rfmodinit1:
 *    r0: pkt_type			// packet type (0x03, 0x10, 0x01, etc.)
 *  return code:
 *    r0: 0				// no error
+*	-1				// timeout error
+*	-2				// checksum error
+*	-3				// empty packet error
 *
 *******************************************************************************/
 
@@ -368,10 +372,10 @@ rfrdpkt7:
 		bgt	rfrdpkt7		// Branch if byte counter > 0
 
 		cmp	r6, #0			// Check if all bytes are zero
-		beq	rfrdpkt9		// Branch if packet is empty
+		beq	rfrdpkt10		// Branch if packet is empty
 
 		mov	r0, #0			// No error
-		bal	rfrdpkt10
+		bal	rfrdpkt11
 
 rfrdpkt8:
 
@@ -379,11 +383,19 @@ rfrdpkt8:
 		mov	r0, #SDAT_IN
 		bl	digitalWrite
 
+		mov	r0, #-1			// Timeout error
+		bal	rfrdpkt11
+
 rfrdpkt9:
 
-		mov	r0, #-1			// Error
+		mov	r0, #-2			// Checksum error
+		bal	rfrdpkt11
 
 rfrdpkt10:
+
+		mov	r0, #-3			// Empty packet error
+
+rfrdpkt11:
 
 		pop	{r4-r11, lr}		// Pop r4-r11 and lr off stack
 		bx	lr			// Return
