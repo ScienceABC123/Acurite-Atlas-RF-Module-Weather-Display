@@ -1,0 +1,7 @@
+weather7.c read me…
+
+I've been "playing around" with the weather station display adding addtional graphics such as: a thermometer graphic that shows the current temperature relative to the average annual high and low temperature, a windsock graphic to give an accurate indication of the winspeed, a compass graphic to give a visual indication of the wind direction, a sun graphic to give a visual indication of the current brightness and that at night displays the Moon with the correct Moon phase.
+
+I’m probably going to leave it alone at this point and move on to another project, but I've said that before...
+
+Enjoy!
