@@ -7,3 +7,5 @@ displays the Moon with the correct Moon phase.
 I’m probably going to leave it alone at this point and move on to another project, but I've said that before...
 
 Enjoy!
+
+P.S. Note: I found a problem in the Simple ARM Graphics library while putting in the BMPs. The Simplay ARM Graphics library has been fixed and is currently at version 1.2. So make sure to get the current version.
