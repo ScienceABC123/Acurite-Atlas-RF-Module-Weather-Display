@@ -3148,7 +3148,7 @@ int main(int argc, char* argv[]) {
 					if ((minute > sunrise) && (minute < sunset)) {
 						if (solar_adjusted >= 64) {
 							if (uv >= 4) {
-								if (solar_adjusted >= 1024) {
+								if (solar_adjusted >= 800) {
 									sprintf(str, "Bright Sunlight");
 									DisplayBMP(&Bright_Sunlight_BMP, x - 11, y - 243);
 								} else {
