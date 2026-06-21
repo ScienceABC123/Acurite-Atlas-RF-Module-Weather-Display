@@ -17,11 +17,11 @@ STEP 2: Transfer Weather station display files to Raspberry Pi
 
   Using an SSH file transfer app (I recommend WinSCP), login to the Raspberry Pi
 
-  On the SSH app, copy the "Weather" and directory to the Raspberry Pi directory: /home/pi/
+  On the SSH app, copy the "Weather" directory to the Raspberry Pi "/home/pi/" directory
 
-  On the SSH app, navigate to the Raspberry Pi directory: /home/pi/Weather/Code/
+  On the SSH app, navigate to the Raspberry Pi "/home/pi/Weather/Code/" directory
 
-  On the SSH app, right-click on the "weather16" file in the Raspberry Pi directory: /home/pi/Weather/Code/
+  On the SSH app, right-click on the "weather16" file
   and select "Properties"
 
   On the SSH app, in the "Permissions:" section enable "X" for: Owner, Group, and Others
