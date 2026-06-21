@@ -1,0 +1,43 @@
+STEP 1: Install WiringPi
+
+  sudo apt-get update
+
+  sudo apt install git
+    Do you want to continue? [Y/n] y
+
+  git clone https://github.com/WiringPi/WiringPi
+
+  cd WiringPi
+
+  ./build
+
+  gpio -v
+
+STEP 2: Transfer Weather station display files to Raspberry Pi
+
+  Using an SSH file transfer app (I recommend WinSCP), login to the Raspberry Pi
+
+  On the SSH app, copy the "Weather" and directory to the Raspberry Pi directory: /home/pi/
+
+  On the SSH app, navigate to the Raspberry Pi directory: /home/pi/Weather/Code/
+
+  On the SSH app, right-click on the "weather16" file in the Raspberry Pi directory: /home/pi/Weather/Code/
+  and select "Properties"
+
+  On the SSH app, in the "Permissions:" section enable "X" for: Owner, Group, and Others
+
+STEP 3: AutoStart Weather station display at boot
+
+  sudo nano /home/pi/.bashrc
+
+    Add at the end:
+      cd /home/pi/Weather/Code
+      sudo ./weather16
+
+    Ctrl-X
+      Save modified buffer?
+        y
+
+STEP 5: Reboot
+
+  sudo reboot

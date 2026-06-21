@@ -1,0 +1,5 @@
+#define LATITUDE 31.04169
+#define LONGITUDE -97.36376
+#define SAVE_HR_BMP_FLAG 1
+#define SAVE_EOD_BMP_FLAG 1
+#define DEBUG_FLAG 0

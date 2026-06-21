@@ -1,0 +1,1 @@
+gcc -o weather16 weather16.c rf_mod_sync_io.o simple_arm_graphics.o font_5x9.o font_arial32.o font_arial104.o Moon_64p_BMPs.o -lm -lwiringPi -Wall
