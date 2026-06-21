@@ -38,6 +38,6 @@ STEP 3: AutoStart Weather station display at boot
       Save modified buffer?
         y
 
-STEP 5: Reboot
+STEP 4: Reboot
 
   sudo reboot
